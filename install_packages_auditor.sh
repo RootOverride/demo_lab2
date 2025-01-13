@@ -132,6 +132,21 @@ sudo git clone https://github.com/zacheller/rockyou.git
 sudo tar -xvzf ./rockyou/rockyou.txt.tar.gz
 sudo rm -Rf rockyou
 
+echo ""
+echo "########## Descargando Contenedor"
+echo ""
+# Instalar Contenedor
+cd /home/ubuntu/
+sudo git clone https://github.com/RootOverride/demo_lab2.git
+cd demo_lab2/
+wget --no-check-certificate "https://drive.usercontent.google.com/download?id=1boNbRfwY9BGxwuqRlOx_BRxFALX4ToCY&export=download&authuser=0&confirm=t&uuid=5782d2f9-f775-4339-892e-eb6cf4216f84&at=AIrpjvMql9Hq93w6dg2c-9-ObIbd:1736783312390" -O psycho.tar
+
+echo ""
+echo "########## Instalando Contenedor"
+echo ""
+sudo bash ./auto_deploy.sh psycho.tar
+
+
 START_TIMEF=$(date '+%Y-%m-%d %H:%M:%S')
 echo ""
 echo "########## ⏰ Finalización del script: $START_TIMEF"

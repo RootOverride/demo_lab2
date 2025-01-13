@@ -77,8 +77,7 @@ if [ $? -eq 0 ]; then
 
     IP_ADDRESS=$(curl -s ifconfig.me)
 
-    echo -e "\e[1;96m\nMáquina desplegada. Accede desde tu navegador a: http://$IP_ADDRESS:8080\e[0m"
-    echo -e "\e[1;91m\nPresiona Ctrl+C cuando termines con la máquina para eliminarla\e[0m"
+    echo -e "\e[1;96m\nMáquina desplegada. Accede desde tu navegador a: http://<IP-PUBLICA>:8080\e[0m"
 
 else
     echo -e "\e[91m\nHa ocurrido un error al cargar el laboratorio en Docker.\e[0m"
