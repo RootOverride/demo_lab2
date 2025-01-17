@@ -29,13 +29,13 @@ sudo apt-get update -y -o Acquire::ForceIPv4=true
 #sudo apt-get install python3-pip -y -o Acquire::ForceIPv4=true
 #sudo pip install virtualenv -y -o Acquire::ForceIPv4=true
 
-echo ""
-echo "########## Instalando Metasploit"
-echo ""
+#echo ""
+#echo "########## Instalando Metasploit"
+#echo ""
 # Instalación de Metasploit (Framework Pruebas de Penetración)
-curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall
-sudo chmod 755 msfinstall
-sudo ./msfinstall
+#curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall
+#sudo chmod 755 msfinstall
+#sudo ./msfinstall
 
 echo ""
 echo "########## Instalando Nmap"
@@ -43,23 +43,23 @@ echo ""
 # Instalación de Nmap (Enumeración)
 sudo apt-get install nmap -y -o Acquire::ForceIPv4=true
 
-echo ""
-echo "########## Actualizando Hping3"
-echo ""
+#echo ""
+#echo "########## Actualizando Hping3"
+#echo ""
 # Instalación de HPing3 (Enviar paquetes ICMP/UDP/TCP personalizados)
-sudo apt-get install hping3 -y -o Acquire::ForceIPv4=true
+#sudo apt-get install hping3 -y -o Acquire::ForceIPv4=true
 
-echo ""
-echo "########## Instalando Scapy"
-echo ""
+#echo ""
+#echo "########## Instalando Scapy"
+#echo ""
 # Instalación de Scapy (Manipulación de paquetes)
-sudo apt-get install python3-scapy -y -o Acquire::ForceIPv4=true
+#sudo apt-get install python3-scapy -y -o Acquire::ForceIPv4=true
 
-echo ""
-echo "########## Instalando Yersinia"
-echo ""
+#echo ""
+#echo "########## Instalando Yersinia"
+#echo ""
 # Instalación de Yersinia (Ataques de Red)
-sudo apt-get install yersinia -y -o Acquire::ForceIPv4=true
+#sudo apt-get install yersinia -y -o Acquire::ForceIPv4=true
 
 echo ""
 echo "########## Instalando Wfuzz y Gobuster"
@@ -68,11 +68,11 @@ echo ""
 sudo apt-get install wfuzz -y -o Acquire::ForceIPv4=true
 sudo apt-get install gobuster -y -o Acquire::ForceIPv4=true
 
-echo ""
-echo "########## Instalando SqlMap"
-echo ""
+#echo ""
+#echo "########## Instalando SqlMap"
+#echo ""
 # Instalación de SQLMap (Inyecciones SQL)
-sudo apt-get install sqlmap -y -o Acquire::ForceIPv4=true
+#sudo apt-get install sqlmap -y -o Acquire::ForceIPv4=true
 
 echo ""
 echo "########## Actualizando Hydra"
@@ -86,11 +86,11 @@ echo ""
 # Instalación de John the Ripper (Descifrador de contraseñas)
 sudo apt-get install john -y -o Acquire::ForceIPv4=true
 
-echo ""
-echo "########## Instalando DNSRecon"
-echo ""
+#echo ""
+#echo "########## Instalando DNSRecon"
+#echo ""
 # Instalación de DNSRecon (Herramienta de escaneo y enumeración DNS)
-sudo apt-get install dnsrecon -y -o Acquire::ForceIPv4=true
+#sudo apt-get install dnsrecon -y -o Acquire::ForceIPv4=true
 
 echo ""
 echo "########## Instalando WhatWeb"
@@ -98,11 +98,11 @@ echo ""
 # Instalación de WhatWeb (Recopila información de sito Web)
 sudo apt-get install whatweb -y -o Acquire::ForceIPv4=true
 
-echo ""
-echo "########## Instalando TShark"
-echo ""
+#echo ""
+#echo "########## Instalando TShark"
+#echo ""
 # Instlación de Tshark (Capt-getura y Analisis de Paquetes)
-sudo DEBIAN_FRONTEND=noninteractive apt-get install tshark -y -o Acquire::ForceIPv4=true
+#sudo DEBIAN_FRONTEND=noninteractive apt-get install tshark -y -o Acquire::ForceIPv4=true
 
 echo ""
 echo "########## Cambiando Hostname"
@@ -127,7 +127,7 @@ echo ""
 cd /home/ubuntu/
 mkdir diccionarios
 cd diccionarios
-#git clone https://github.com/danielmiessler/SecLists.git
+git clone https://github.com/danielmiessler/SecLists.git
 sudo git clone https://github.com/zacheller/rockyou.git
 sudo tar -xvzf ./rockyou/rockyou.txt.tar.gz
 sudo rm -Rf rockyou

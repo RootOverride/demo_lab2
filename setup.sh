@@ -3,11 +3,35 @@
 echo ""
 echo "############################################################################################################################"
 echo "#                               Escuela de Tegnologías Aplicadas | Instituto Profesional IACC                              #"
+echo "#                                           Laboratorio Practico | Técnica LFI                                             #"
 echo "############################################################################################################################"
 echo ""
 
+# Linux
+#ami_id="ami-0c7af5fe939f2677f" # Red Hat Enterprise Linux 9 (HVM), SSD Volume Type
+#ami_id="ami-0cd60fd97301e4b49" # SUSE Linux Enterprise Server 15 SP6 (HVM), SSD Volume Type
+#ami_id="ami-0fb850c7ef7d832e1" # SUSE Linux Enterprise Server 12 SP5 (HVM), SSD Volume Type
+ami_id="ami-04b4f1a9cf54c11d0" # Ubuntu Server 24.04 LTS (HVM), SSD Volume Type
+#ami_id="ami-0e1bed4f06a3b463d" # Ubuntu Server 22.04 LTS (HVM), SSD Volume Type
+#ami_id="ami-064519b8c76274859" # Debian 12 (HVM), SSD Volume Type
+
+# AWS
+#ami_id="ami-05576a079321f21f8" # AMI de Amazon Linux 2023
+#ami_id="ami-0454e52560c7f5c55" # Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type
+#ami_id="ami-0b8aeb1889f1a812a" # Amazon Linux 2 with .NET 6, PowerShell, Mono, and MATE Desktop Environment
+
+# Windows
+#ami_id="ami-09ec59ede75ed2db7" # Microsoft Windows Server 2025 Base
+#ami_id="ami-0a9ddfd0e84a3031f" # Microsoft Windows Server 2025 Core Base
+#ami_id="ami-0b1f2b17be9b81cdc" # Microsoft Windows Server 2022 Base
+#ami_id="ami-0c915868b91bfe560" # Microsoft Windows Server 2022 Core Base
+#ami_id="ami-05b4ded3ceb71e470" # Microsoft Windows Server 2019 Base
+#ami_id="ami-0fc979e08f3ef6675" # Microsoft Windows Server 2019 Core Base
+#ami_id="ami-0e919d6fa900d3719" # Microsoft Windows Server 2016 Base
+#ami_id="ami-0c1af728dd96bf232" # Microsoft Windows Server 2016 Core Base
+
 # Datos IPv4
-AWS_IP_instancia1=10.0.1.100
+AWS_IP_instancia1="10.0.1.100"
 
 # Solicitar nombre y apellido
 read -p "Ingrese su nombre y apellido juntos (ejemplo: NombreApellido): " email
@@ -118,41 +142,9 @@ aws ec2 authorize-security-group-ingress \
   --port 8080 \
   --cidr 0.0.0.0/0
 
-#aws ec2 authorize-security-group-ingress \
-#  --group-id $sg_id \
-#  --protocol udp \
-#  --port 53 \
-#  --cidr 0.0.0.0/0
-
-# Permitir tráfico de salida hacia Internet en los puertos 80 (HTTP) y 443 (HTTPS)
-#aws ec2 authorize-security-group-egress \
-#  --group-id $sg_id \
-#  --protocol tcp \
-#  --port 80 \
-#  --cidr 0.0.0.0/0
-
-#aws ec2 authorize-security-group-egress \
-#  --group-id $sg_id \
-#  --protocol tcp \
-#  --port 443 \
-#  --cidr 0.0.0.0/0
-
-#aws ec2 authorize-security-group-egress \
-#  --group-id $sg_id \
-#  --protocol tcp \
-#  --port 53 \
-#  --cidr 0.0.0.0/0
-
-#aws ec2 authorize-security-group-egress \
-#  --group-id $sg_id \
-#  --protocol udp \
-#  --port 53 \
-#  --cidr 0.0.0.0/0
-
 echo "✅ Se permite tráfico de salida en los puertos 80 y 443 (HTTP, HTTPS)"
 
 # Permitir todo el tráfico interno
-#aws ec2 authorize-security-group-ingress \
 aws ec2 authorize-security-group-egress \
   --group-id $sg_id \
   --protocol -1 \
@@ -162,21 +154,14 @@ aws ec2 authorize-security-group-egress \
   --group-id $sg_id \
   --protocol -1 \
   --cidr 10.0.1.0/24
-#  --port -1 \
-#  --cidr 10.0.0.0/16
   
 echo "✅ Se permite todo el tráfico de salida"
 
-# Crear Key Pair
-#aws ec2 create-key-pair --key-name "$email" --query 'KeyMaterial' --output text > "${email}.pem"
-#chmod 400 "${email}.pem"
-#echo "✅ Par de llaves creadas: ${email}.pem"
-
 # Lanzar dos instancias Ubuntu
-ami_id=$(aws ec2 describe-images \
-        --filters "Name=name,Values=ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*" \
-        --query 'Images[0].ImageId' \
-        --output text)
+#ami_id=$(aws ec2 describe-images \
+#        --filters "Name=name,Values=ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*" \
+#        --query 'Images[0].ImageId' \
+#        --output text)
 
 # Crear instancia Auditor
 instance_id1=$(aws ec2 run-instances \
@@ -185,6 +170,7 @@ instance_id1=$(aws ec2 run-instances \
               --key-name vockey \
               --security-group-ids $sg_id \
               --subnet-id $subnet_id \
+              --block-device-mappings "[{\"DeviceName\":\"/dev/sda1\",\"Ebs\":{\"VolumeSize\":30,\"VolumeType\":\"gp3\",\"Iops\":3000,\"Throughput\":125}}]" \
               --user-data file://install_packages_auditor.sh \
               --private-ip-address $AWS_IP_instancia1 \
               --query 'Instances[*].InstanceId' \
@@ -197,7 +183,7 @@ echo "✅ Instancias lanzadas con los siguientes IDs: $instance_id1"
 # Obtener el primer InstanceId
 echo "📌 Primera instancia seleccionada para asignar Elastic IP: $instance_id1"
 echo "⏳ Esperando a que la instancia $instance_id1 esté disponible para asociar la IP elastica, 6 minutos de espera..."
-sleep 360
+sleep 60
 
 # Crear y asociar Elastic IP
 eip_allocation_id1=$(aws ec2 allocate-address \
