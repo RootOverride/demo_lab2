@@ -104,12 +104,6 @@ sudo apt-get install whatweb -y -o Acquire::ForceIPv4=true
 # Instlación de Tshark (Capt-getura y Analisis de Paquetes)
 #sudo DEBIAN_FRONTEND=noninteractive apt-get install tshark -y -o Acquire::ForceIPv4=true
 
-echo ""
-echo "########## Cambiando Hostname"
-echo ""
-# Cambiar Hostname
-sudo hostnamectl set-hostname Auditor
-
 # Instalación de Evil-WinRM (Marco de pruebas de penetración)
 #sudo gem install evil-winrm
 
@@ -146,6 +140,11 @@ echo "########## Instalando Contenedor"
 echo ""
 sudo bash ./auto_deploy.sh psycho.tar
 
+echo ""
+echo "########## Cambiando Hostname"
+echo ""
+# Cambiar Hostname
+sudo hostnamectl set-hostname Auditor
 
 START_TIMEF=$(date '+%Y-%m-%d %H:%M:%S')
 echo ""

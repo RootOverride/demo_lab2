@@ -183,7 +183,7 @@ echo "✅ Instancias lanzadas con los siguientes IDs: $instance_id1"
 # Obtener el primer InstanceId
 echo "📌 Primera instancia seleccionada para asignar Elastic IP: $instance_id1"
 echo "⏳ Esperando a que la instancia $instance_id1 esté disponible para asociar la IP elastica, 6 minutos de espera..."
-sleep 60
+sleep 200
 
 # Crear y asociar Elastic IP
 eip_allocation_id1=$(aws ec2 allocate-address \
